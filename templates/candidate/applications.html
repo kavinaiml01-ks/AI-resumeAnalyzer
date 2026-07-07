@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}My Applications — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h4 class="fw-bold mb-3"><i class="bi bi-list-check text-primary"></i> My Applications</h4>
+
+  <div class="card sh-card p-3">
+    <table class="table align-middle">
+      <thead>
+        <tr><th>Job Title</th><th>Match Score</th><th>Status</th><th>Applied On</th></tr>
+      </thead>
+      <tbody>
+        {% for app in applications %}
+        <tr>
+          <td>{{ app.job.title }}</td>
+          <td>
+            <div class="progress" style="width:140px;">
+              <div class="progress-bar bg-primary" data-value="{{ app.match_score }}" style="width:0%">{{ app.match_score }}%</div>
+            </div>
+          </td>
+          <td>
+            {% if app.application_status == 'Shortlisted' %}
+              <span class="badge bg-success">Shortlisted</span>
+            {% elif app.application_status == 'Rejected' %}
+              <span class="badge bg-danger">Rejected</span>
+            {% else %}
+              <span class="badge bg-secondary">Applied</span>
+            {% endif %}
+          </td>
+          <td>{{ app.applied_at.strftime('%d %b %Y') }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-muted text-center">No applications yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

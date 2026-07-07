@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}SmartHire AI — Intelligent Resume Screening{% endblock %}
+{% block content %}
+
+<section class="sh-hero">
+  <div class="container text-center">
+    <h1 class="display-5 mb-3">AI-Powered Resume Screening & Candidate Ranking</h1>
+    <p class="lead mb-4">SmartHire AI reads resumes, extracts skills, scores candidates against job requirements, and ranks the best applicants — automatically.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="{{ url_for('auth.register') }}" class="btn btn-warning btn-lg fw-semibold"><i class="bi bi-person-plus"></i> Join as Candidate</a>
+      <a href="{{ url_for('auth.recruiter_register') }}" class="btn btn-light btn-lg fw-semibold"><i class="bi bi-briefcase"></i> Join as Recruiter</a>
+    </div>
+  </div>
+</section>
+
+<div class="container my-5">
+  <div class="row text-center g-4">
+    <div class="col-md-3 col-6">
+      <div class="card sh-card p-3 h-100">
+        <i class="bi bi-filetype-pdf fs-1 text-primary"></i>
+        <h6 class="mt-2">Smart Resume Parsing</h6>
+        <p class="small text-muted mb-0">PyPDF2 + NLTK extract and clean resume content automatically.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="card sh-card p-3 h-100">
+        <i class="bi bi-graph-up-arrow fs-1 text-success"></i>
+        <h6 class="mt-2">AI Match Scoring</h6>
+        <p class="small text-muted mb-0">Skill-overlap formula blended with TF-IDF semantic similarity.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="card sh-card p-3 h-100">
+        <i class="bi bi-trophy fs-1 text-warning"></i>
+        <h6 class="mt-2">Candidate Ranking</h6>
+        <p class="small text-muted mb-0">Recruiters instantly see a ranked leaderboard of top applicants.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="card sh-card p-3 h-100">
+        <i class="bi bi-shield-check fs-1 text-danger"></i>
+        <h6 class="mt-2">Secure & Role-Based</h6>
+        <p class="small text-muted mb-0">Hashed passwords, session auth, and role-based dashboards.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-6">
+      <h2 class="fw-bold mb-3">How the AI Scoring Works</h2>
+      <p class="text-muted">Every uploaded resume is parsed, cleaned, and matched against job requirements using a transparent formula:</p>
+      <div class="p-3 bg-white rounded-3 shadow-sm">
+        <code>Resume Score = (Matching Skills ÷ Required Skills) × 100</code>
+      </div>
+      <p class="text-muted mt-3">This is blended with a TF-IDF cosine-similarity score for a more nuanced ranking signal, then candidates are automatically ordered on the recruiter's leaderboard.</p>
+    </div>
+    <div class="col-lg-6">
+      <div class="card sh-card p-4">
+        <h6 class="text-muted mb-3">Example Match Breakdown</h6>
+        <div class="d-flex justify-content-between mb-1"><span>Python</span><span class="text-success">Matched</span></div>
+        <div class="progress mb-3"><div class="progress-bar bg-success" data-value="100" style="width:0%">100%</div></div>
+        <div class="d-flex justify-content-between mb-1"><span>Overall Match Score</span><span class="text-primary fw-bold">82%</span></div>
+        <div class="progress"><div class="progress-bar bg-primary" data-value="82" style="width:0%">82%</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

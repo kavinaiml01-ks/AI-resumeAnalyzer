@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Manage Recruiters — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h4 class="fw-bold mb-3"><i class="bi bi-building text-primary"></i> Manage Recruiters</h4>
+  <div class="card sh-card p-3">
+    <table class="table align-middle">
+      <thead><tr><th>Company</th><th>Email</th><th>Industry</th><th>Joined</th><th>Action</th></tr></thead>
+      <tbody>
+        {% for r in recruiters %}
+        <tr>
+          <td>{{ r.company_name }}</td>
+          <td>{{ r.email }}</td>
+          <td>{{ r.industry or '—' }}</td>
+          <td>{{ r.created_at.strftime('%d %b %Y') if r.created_at else '—' }}</td>
+          <td>
+            <form method="POST" action="{{ url_for('admin.delete_recruiter', recruiter_id=r.id) }}" onsubmit="return confirm('Remove this recruiter?');">
+              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-muted text-center">No recruiters yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

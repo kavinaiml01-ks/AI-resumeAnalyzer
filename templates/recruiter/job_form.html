@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit Job" if job else "Post a Job" }} — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <div class="card sh-card p-4" style="max-width:700px;margin:0 auto;">
+    <h4 class="fw-bold mb-3"><i class="bi bi-briefcase text-primary"></i> {{ "Edit Job" if job else "Post a New Job" }}</h4>
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">Job Title</label>
+        <input type="text" class="form-control" name="title" value="{{ job.title if job else '' }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Job Description</label>
+        <textarea class="form-control" name="description" rows="4" required>{{ job.description if job else '' }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Required Skills (comma-separated)</label>
+        <input type="text" class="form-control" name="required_skills" placeholder="python, flask, mysql" value="{{ job.required_skills if job else '' }}" required>
+      </div>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Experience</label>
+          <input type="text" class="form-control" name="experience" placeholder="e.g. 2-4 years" value="{{ job.experience if job else '' }}">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Salary</label>
+          <input type="text" class="form-control" name="salary" placeholder="e.g. ₹6-9 LPA" value="{{ job.salary if job else '' }}">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-control" name="location" placeholder="e.g. Chennai / Remote" value="{{ job.location if job else '' }}">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">{{ "Update Job" if job else "Post Job" }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

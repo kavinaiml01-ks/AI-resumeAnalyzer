@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Job Listings — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h4 class="fw-bold mb-3"><i class="bi bi-briefcase text-primary"></i> Job Listings</h4>
+
+  <form method="GET" class="row g-2 mb-4">
+    <div class="col-md-5">
+      <input type="text" class="form-control" name="q" placeholder="Search by job title" value="{{ search }}">
+    </div>
+    <div class="col-md-4">
+      <input type="text" class="form-control" name="location" placeholder="Location" value="{{ location }}">
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-primary w-100" type="submit"><i class="bi bi-search"></i> Search</button>
+    </div>
+  </form>
+
+  <div class="row g-3">
+    {% for job in jobs %}
+    <div class="col-md-6">
+      <div class="card sh-card p-3 h-100">
+        <div class="d-flex justify-content-between">
+          <h6 class="fw-bold">{{ job.title }}</h6>
+          <span class="badge bg-light text-dark">{{ job.experience or 'Any exp' }}</span>
+        </div>
+        <p class="small text-muted mb-2"><i class="bi bi-geo-alt"></i> {{ job.location or "Remote" }} &nbsp; | &nbsp; <i class="bi bi-cash"></i> {{ job.salary or "Not disclosed" }}</p>
+        <p class="small mb-2">{{ job.description[:120] }}{% if job.description|length > 120 %}...{% endif %}</p>
+        <div class="mb-3">
+          {% for skill in job.skills_list()[:5] %}
+            <span class="skill-badge">{{ skill.title() }}</span>
+          {% endfor %}
+        </div>
+        <form method="POST" action="{{ url_for('candidate.apply_job', job_id=job.id) }}">
+          <button class="btn btn-primary w-100 btn-sm" type="submit"><i class="bi bi-send"></i> Apply Now</button>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <p class="text-muted">No jobs found matching your criteria.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

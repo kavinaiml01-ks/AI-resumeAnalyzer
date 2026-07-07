@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}AI Statistics — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h4 class="fw-bold mb-3"><i class="bi bi-cpu text-primary"></i> AI Engine Statistics</h4>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="stat-card blue"><p>Total Resumes Analyzed</p><h3>{{ total_resumes }}</h3></div>
+    </div>
+    <div class="col-md-4">
+      <div class="stat-card green"><p>Avg. Resume Strength</p><h3>{{ avg_strength }}%</h3></div>
+    </div>
+    <div class="col-md-4">
+      <div class="stat-card orange"><p>Avg. Application Match Score</p><h3>{{ avg_application_score }}%</h3></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

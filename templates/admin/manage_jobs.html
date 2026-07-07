@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Manage Jobs — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h4 class="fw-bold mb-3"><i class="bi bi-briefcase text-primary"></i> Manage Job Posts</h4>
+  <div class="card sh-card p-3">
+    <table class="table align-middle">
+      <thead><tr><th>Title</th><th>Company</th><th>Location</th><th>Applicants</th><th>Action</th></tr></thead>
+      <tbody>
+        {% for job in jobs %}
+        <tr>
+          <td>{{ job.title }}</td>
+          <td>{{ job.recruiter.company_name }}</td>
+          <td>{{ job.location or '—' }}</td>
+          <td>{{ job.applications|length }}</td>
+          <td>
+            <form method="POST" action="{{ url_for('admin.delete_job', job_id=job.id) }}" onsubmit="return confirm('Remove this job post?');">
+              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-muted text-center">No jobs posted yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

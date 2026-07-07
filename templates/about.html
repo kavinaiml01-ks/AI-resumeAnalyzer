@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}About — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="fw-bold mb-3">About SmartHire AI</h2>
+  <p class="text-muted">SmartHire AI is an intelligent recruitment platform that automates resume screening using
+  Natural Language Processing and Machine Learning. Recruiters post jobs, candidates upload resumes, and our AI
+  engine extracts skills, calculates match scores, and ranks applicants — saving hours of manual review.</p>
+
+  <div class="row g-4 mt-3">
+    <div class="col-md-4">
+      <div class="card sh-card p-3 h-100">
+        <h6><i class="bi bi-stars text-primary"></i> Our Mission</h6>
+        <p class="small text-muted mb-0">Make hiring faster and fairer through transparent, explainable AI scoring.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card sh-card p-3 h-100">
+        <h6><i class="bi bi-gear text-primary"></i> Tech Stack</h6>
+        <p class="small text-muted mb-0">Flask, MySQL, Scikit-learn, NLTK, PyPDF2, and Bootstrap 5.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card sh-card p-3 h-100">
+        <h6><i class="bi bi-people text-primary"></i> Built For</h6>
+        <p class="small text-muted mb-0">Candidates, recruiters, and admins, with role-based dashboards for each.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

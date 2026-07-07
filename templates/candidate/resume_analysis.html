@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Resume Analysis — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card sh-card p-4">
+        <h4 class="fw-bold mb-1"><i class="bi bi-clipboard-data text-primary"></i> Resume Analysis</h4>
+        <p class="text-muted mb-4">{{ resume.filename }} — uploaded {{ resume.uploaded_at.strftime('%d %b %Y') }}</p>
+
+        <h6 class="fw-semibold">Resume Strength Meter</h6>
+        <div class="progress mb-1">
+          <div class="progress-bar bg-success" data-value="{{ resume.match_score }}" style="width:0%">{{ resume.match_score }}%</div>
+        </div>
+        <p class="small text-muted mb-4">Based on detected skills, key resume sections, and overall length.</p>
+
+        <h6 class="fw-semibold mb-2">Extracted Skills ({{ resume.skills_list()|length }})</h6>
+        <div class="mb-4">
+          {% for skill in resume.skills_list() %}
+            <span class="skill-badge">{{ skill.title() }}</span>
+          {% else %}
+            <p class="text-muted small">No recognizable skills found. Try a more detailed resume.</p>
+          {% endfor %}
+        </div>
+
+        <div class="d-flex gap-2">
+          <a href="{{ url_for('candidate.download_report', resume_id=resume.id) }}" class="btn btn-outline-primary"><i class="bi bi-download"></i> Download PDF Report</a>
+          <a href="{{ url_for('candidate.job_listing') }}" class="btn btn-primary"><i class="bi bi-search"></i> Find Matching Jobs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

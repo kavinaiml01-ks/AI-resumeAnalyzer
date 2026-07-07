@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Search Candidates — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h4 class="fw-bold mb-3"><i class="bi bi-search text-primary"></i> Search Candidates by Skill</h4>
+  <form method="GET" class="row g-2 mb-4">
+    <div class="col-md-8">
+      <input type="text" class="form-control" name="skill" placeholder="e.g. python" value="{{ skill }}">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary w-100" type="submit">Search</button>
+    </div>
+  </form>
+
+  {% if skill %}
+    {% for app in results %}
+    <div class="card sh-card p-3 mb-2">
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong>{{ app.user.fullname }}</strong> applied for <span class="text-primary">{{ app.job.title }}</span>
+        </div>
+        <span class="badge bg-primary rounded-pill">{{ app.match_score }}%</span>
+      </div>
+    </div>
+    {% else %}
+    <p class="text-muted">No candidates found with that skill.</p>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

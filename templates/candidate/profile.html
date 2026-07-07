@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}My Profile — SmartHire AI{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <div class="card sh-card p-4" style="max-width:600px;margin:0 auto;">
+    <h4 class="fw-bold mb-3"><i class="bi bi-person-circle text-primary"></i> My Profile</h4>
+    <table class="table">
+      <tr><th>Full Name</th><td>{{ current_user.fullname }}</td></tr>
+      <tr><th>Email</th><td>{{ current_user.email }}</td></tr>
+      <tr><th>Role</th><td><span class="badge bg-primary">Candidate</span></td></tr>
+      <tr><th>Member Since</th><td>{{ current_user.created_at.strftime('%d %b %Y') if current_user.created_at else '—' }}</td></tr>
+    </table>
+  </div>
+</div>
+{% endblock %}
