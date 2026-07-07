@@ -23,7 +23,6 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(composite_id):
-        # composite_id looks like "user-3" or "recruiter-5"
         try:
             kind, raw_id = composite_id.split("-", 1)
         except ValueError:
@@ -35,7 +34,6 @@ def create_app():
             return Recruiter.query.get(int(raw_id))
         return None
 
-    # ---- Register Blueprints ----
     from routes.main_routes import main_bp
     from routes.auth_routes import auth_bp
     from routes.candidate_routes import candidate_bp
@@ -48,7 +46,6 @@ def create_app():
     app.register_blueprint(recruiter_bp)
     app.register_blueprint(admin_bp)
 
-    # ---- Error Handlers ----
     @app.errorhandler(403)
     def forbidden(e):
         return "Access denied: you don't have permission to view this page.", 403
@@ -78,4 +75,4 @@ def _ensure_default_admin():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=False, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
