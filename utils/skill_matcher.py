@@ -7,18 +7,16 @@ required skills and computes the AI Resume Match Score.
 Formula:
     Resume Score = (Matching Skills / Total Required Skills) * 100
 
-Also provides a TF-IDF + cosine-similarity based "semantic" score
-using scikit-learn, blended with the exact-skill-match score for a
-more robust final ranking signal.
+Also provides a lightweight semantic score based on shared words and
+keyword overlap, blended with the exact-skill-match score for a
+simple but effective ranking signal.
 """
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+import re
 
 
 def normalize_skills(skill_list):
     return set(s.strip().lower() for s in skill_list if s.strip())
-
 
 def match_skills(resume_skills, required_skills):
     """
@@ -47,19 +45,28 @@ def match_skills(resume_skills, required_skills):
 
 def semantic_similarity(resume_text, job_description):
     """
-    Uses TF-IDF vectorization + cosine similarity to gauge overall
-    textual relevance between resume and job description, returned as 0-100.
+    Computes a lightweight semantic score using shared keyword overlap.
+    Returns a value between 0 and 100.
     """
-    if not resume_text.strip() or not job_description.strip():
+    if not resume_text or not job_description:
         return 0.0
 
-    vectorizer = TfidfVectorizer(stop_words="english")
-    try:
-        tfidf_matrix = vectorizer.fit_transform([resume_text, job_description])
-        sim = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
-    except ValueError:
+    def tokenize(text):
+        words = re.findall(r"[a-zA-Z0-9#+.]+", text.lower())
+        return [w for w in words if len(w) > 2]
+
+    resume_words = set(tokenize(resume_text))
+    job_words = set(tokenize(job_description))
+
+    if not resume_words or not job_words:
         return 0.0
-    return round(sim * 100, 2)
+
+    overlap = resume_words & job_words
+    if not overlap:
+        return 0.0
+
+    score = (len(overlap) / max(len(resume_words), len(job_words))) * 100
+    return round(score, 2)
 
 
 def calculate_final_score(resume_skills, required_skills, resume_text="", job_description=""):
