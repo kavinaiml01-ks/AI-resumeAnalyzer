@@ -1,6 +1,9 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_login import LoginManager
+
+load_dotenv()
 
 from config import Config
 from models import db
